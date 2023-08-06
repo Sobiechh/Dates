@@ -13,5 +13,5 @@ database = databases.Database(DATABASE_URL)
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Create a base class for declarative models
+# Create a base class for declarative api
 Base = declarative_base()
