@@ -1,0 +1,5 @@
+databases~=0.7.0
+SQLAlchemy~=1.4.49
+fastapi==0.68.1
+uvicorn==0.15.0
+python-dotenv==1.0.0
