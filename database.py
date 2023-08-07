@@ -1,10 +1,10 @@
 import databases
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 from config import settings
 
-DATABASE_URL =settings.DATABASE_URL
+DATABASE_URL = settings.DATABASE_URL
 
 # Create a database instance using the databases library
 database = databases.Database(DATABASE_URL)
@@ -13,5 +13,13 @@ database = databases.Database(DATABASE_URL)
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Create a base class for declarative models
+# Create a base class for declarative api
 Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
