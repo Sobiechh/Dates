@@ -6,7 +6,7 @@ This is a simple REST API built using FastAPI that interacts with an external AP
 
 ### Prerequisites
 
-- Python 3.7
+- Python 3.7.5
 - Pip (Python package manager)
 - Deta Space account (for deployment)
 
@@ -15,12 +15,14 @@ This is a simple REST API built using FastAPI that interacts with an external AP
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/your-fastapi-dates-app.git
-cd your-fastapi-dates-app
+git clone https://github.com/Sobiechh/Dates.git
+cd Dates
 ```
-Install the required packages:
 
+Install the required packages:
+```bash
 pip install -r requirements.txt
+```
 Create a .env file in the project root directory and set your environment variables:
 
 ```dotenv
