@@ -1,9 +1,9 @@
-import httpx
+import requests
 
-async def fetch_fun_fact(month: int, day: int) -> str:
+
+def fetch_fun_fact(month: int, day: int) -> str:
     url = f"http://numbersapi.com/{month}/{day}/date"
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        content = response.text
+    response = requests.get(url)
+    content = response.text
 
-        return content
+    return content

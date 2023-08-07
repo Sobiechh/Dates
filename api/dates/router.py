@@ -1,4 +1,5 @@
 from itertools import count
+from typing import List
 
 from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
@@ -8,7 +9,6 @@ from api.dates.schemas import DateCreate, DateResponse, PopularMonth
 from api.dates.utils import fetch_fun_fact
 from config import settings
 from database import engine, get_db
-from typing import List
 
 # Create tables
 DateModel.metadata.create_all(bind=engine)
@@ -30,7 +30,7 @@ async def create_date(date: DateCreate, db: Session = Depends(get_db)):
 
     if existing_date:
         # Date exists, update the fun fact using the external API
-        fun_fact = await fetch_fun_fact(date.month, date.day)
+        fun_fact = fetch_fun_fact(date.month, date.day)
         existing_date.fun_fact = fun_fact
         db.commit()
         return DateResponse(
@@ -41,7 +41,7 @@ async def create_date(date: DateCreate, db: Session = Depends(get_db)):
         )
 
     # Date doesn't exist, fetch fun fact and create a new record
-    fun_fact = await fetch_fun_fact(date.month, date.day)
+    fun_fact = fetch_fun_fact(date.month, date.day)
     new_date = DateModel(month=date.month, day=date.day, fun_fact=fun_fact)
     db.add(new_date)
     db.commit()
@@ -60,7 +60,7 @@ async def get_dates(db: Session = Depends(get_db)):
     dates = db.query(DateModel).all()
     date_responses = []
     for date in dates:
-        fun_fact = await fetch_fun_fact(date.month, date.day)
+        fun_fact = fetch_fun_fact(date.month, date.day)
         date_response = DateResponse(
             id=date.id,
             month=date.get_month_display(month=date.month),
