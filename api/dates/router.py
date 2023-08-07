@@ -35,7 +35,7 @@ async def create_date(date: DateCreate, db: Session = Depends(get_db)):
         db.commit()
         return DateResponse(
             id=existing_date.id,
-            month=existing_date.get_month_display(),
+            month=existing_date.get_month_display(month=existing_date.month),
             day=existing_date.day,
             fact=fun_fact,
         )
