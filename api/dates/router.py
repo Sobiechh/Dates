@@ -8,6 +8,7 @@ from api.dates.schemas import DateCreate, DateResponse, PopularMonth
 from api.dates.utils import fetch_fun_fact
 from config import settings
 from database import engine, get_db
+from typing import List
 
 # Create tables
 DateModel.metadata.create_all(bind=engine)
@@ -54,7 +55,7 @@ async def create_date(date: DateCreate, db: Session = Depends(get_db)):
     )
 
 
-@router.get("/dates", response_model=list[DateResponse])
+@router.get("/dates", response_model=List[DateResponse])
 async def get_dates(db: Session = Depends(get_db)):
     dates = db.query(DateModel).all()
     date_responses = []
@@ -90,7 +91,7 @@ def delete_date(
 popular_id_counter = count(1)
 
 
-@router.get("/popular", response_model=list[PopularMonth])
+@router.get("/popular", response_model=List[PopularMonth])
 def get_popular_months(db: Session = Depends(get_db)):
     query = db.query(DateModel.month, DateModel.day).distinct(
         DateModel.month, DateModel.day
