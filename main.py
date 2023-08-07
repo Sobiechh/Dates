@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
+from api.dates.router import router as dates_router
+
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello, World!"}
+app.include_router(dates_router)
