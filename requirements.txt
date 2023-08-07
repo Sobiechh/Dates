@@ -1,7 +1,7 @@
 databases==0.7.0
 SQLAlchemy==1.4.49
-fastapi==0.101.0
 uvicorn==0.23.2
+fastapi==0.101.0
 python-dotenv==1.0.0
 pydantic==2.1.1
 python-dotenv==1.0.0
